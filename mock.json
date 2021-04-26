@@ -1,0 +1,21 @@
+{
+    "host": "0.0.0.0",
+    "port": 8088,
+    "handlers": [
+        {
+            "method": "GET",
+            "path": "/hello",
+            "response": "world"
+        },
+        {
+            "method": "GET",
+            "path": "/index",
+            "response": "index.html"
+        },
+        {
+            "method": "POST",
+            "path": "/camera-events",
+            "response": "uploadResponse"
+        }
+    ]
+}
