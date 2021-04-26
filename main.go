@@ -22,7 +22,7 @@ func main() {
     handler := func(w http.ResponseWriter, req *http.Request) {
         path := req.URL.Path
         method := req.Method
-        log.Printf("receive request %s %s\n", req.Method, req.URL.Path)
+        log.Printf("receive request %s %s %s\n",req.Proto,  req.Method, req.URL.Path)
         b,_ := ioutil.ReadAll(req.Body)
         log.Printf("receive request %s\n", b)
         key := fmt.Sprintf("%s-%s", path, method)
@@ -41,7 +41,14 @@ func main() {
     }
     addr := fmt.Sprintf("%s:%d", conf.Host, conf.Port)
     fmt.Printf("listen: %s\n", addr)
-    log.Fatal(http.ListenAndServe(addr, nil))
+    if conf.UseHttp2 {
+        srv := &http.Server{Addr:addr, Handler: nil}
+        fmt.Println("start http2 server")
+        log.Fatal(srv.ListenAndServeTLS("server.crt", "server.key"))
+    }else {
+        log.Fatal(http.ListenAndServe(addr, nil))
+    }
+
 
 
 }

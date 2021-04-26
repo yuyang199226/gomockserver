@@ -10,6 +10,7 @@ type Config struct {
     Host string `json:"host"`
     Port int     `json:"port"`
     Handlers []Handler `json:"handlers"`
+    UseHttp2 bool `json:"useHttp2"`
 
 }
 
